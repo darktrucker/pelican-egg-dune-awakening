@@ -61,7 +61,8 @@ RUN apt-get update \
 # Pelican convention: runtime user is `container` at UID 988 with home at
 # /home/container. Matches ghcr.io/parkervcp/yolks images so other Pelican
 # tooling that hard-codes this UID continues to work.
-RUN useradd --uid 988 --user-group --create-home --home-dir /home/container --shell /bin/bash container
+RUN groupadd --gid 997 container \
+    && useradd --uid 998 --gid 997 --create-home --home-dir /home/container --shell /bin/bash container
 
 # AMP-compat symlink. CubeCoders' install.sh runs `patchelf --set-interpreter`
 # with absolute install-time paths (e.g. /mnt/server/extracted/postgres/lib/
